@@ -7,6 +7,7 @@ export const items = [
       rating: 4.9,
       availableFrom: "Mar 15",
       price: 35,
+      image: "/images/Camera1.jpg",
     },
     {
       id: 2,
@@ -15,6 +16,7 @@ export const items = [
       rating: 4.7,
       availableFrom: "Mar 18",
       price: 25,
+      image: "/images/Bike.jpg",
     },
     {
       id: 3,
@@ -23,6 +25,7 @@ export const items = [
       rating: 4.8,
       availableFrom: "Now",
       price: 45,
+      image: "/images/Tools.jpg",
     },
     {
       id: 4,
@@ -31,6 +34,7 @@ export const items = [
       rating: 4.9,
       availableFrom: "Mar 20",
       price: 120,
+      image: "/images/DJ.jpg",
     },
   ];
   

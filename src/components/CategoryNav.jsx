@@ -9,7 +9,7 @@ import {
   
   export default function CategoryNav() {
     return (
-      <nav className="flex justify-center space-x-8 py-6 bg-white shadow-sm">
+      <nav className="w-full max-w-7xl mx-auto px-4 flex justify-between items-center py-6 bg-white shadow-sm">
         <button className="flex flex-col items-center">
           <FaCar size={24} />
           <span className="mt-1 text-sm">Transport</span>

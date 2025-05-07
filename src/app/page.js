@@ -6,7 +6,7 @@ import MapSection from '@/components/MapSection'
 export default function HomePage() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+      <main className="flex flex-col gap-[32px] row-start-2 items-start">
 
         {/* 1) Category bar */}
         <CategoryNav />
@@ -21,6 +21,7 @@ export default function HomePage() {
               rating={item.rating}
               availableFrom={item.availableFrom}
               price={item.price}
+              image={item.image}
             />
           ))}
         </section>
