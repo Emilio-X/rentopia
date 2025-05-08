@@ -1,9 +1,13 @@
+// src/components/Header.jsx
 'use client';
 
 import Link from 'next/link';
 import { FaSearch, FaUserCircle } from 'react-icons/fa';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
-export default function Header() {
+export default function Header({ searchQuery, setSearchQuery }) {
+  const { data: session, status } = useSession();
+
   return (
     <header className="flex items-center justify-between bg-white py-4 px-6 shadow-sm">
       {/* Logo */}
@@ -14,10 +18,12 @@ export default function Header() {
       {/* Search bar */}
       <div className="flex-1 max-w-xl mx-6">
         <div className="relative">
-          <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <FaSearch className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search for items to rent…"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -30,9 +36,32 @@ export default function Header() {
             List your item
           </button>
         </Link>
-        <button className="p-2 rounded-full hover:bg-gray-100 transition">
-          <FaUserCircle size={24} className="text-gray-600" />
-        </button>
+
+        {status === 'loading' ? (
+          <div>Loading…</div>
+        ) : session ? (
+          <>
+            <img
+              src={session.user.image}
+              alt={session.user.name}
+              className="h-8 w-8 rounded-full"
+            />
+            <button
+              onClick={() => signOut()}
+              className="px-3 py-1 text-sm text-gray-700 hover:underline"
+            >
+              Sign out
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={() => signIn('github')}
+            className="flex items-center space-x-1 px-4 py-2 border border-gray-300 rounded hover:bg-gray-100"
+          >
+            <FaUserCircle />
+            <span>Sign in</span>
+          </button>
+        )}
       </div>
     </header>
   );
