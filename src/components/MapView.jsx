@@ -1,49 +1,53 @@
-// src/components/MapView.jsx
+// components/MapView.jsx
 'use client';
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
+import { Icon } from 'leaflet';
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import { items } from '@/data/items';
 
-// point Leaflet’s default markers at the files in /public
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: '/marker-icon-2x.png',
-  iconUrl:       '/marker-icon.png',
-  shadowUrl:     '/marker-shadow.png',
+const defaultIcon = new Icon({
+  iconUrl: markerIcon.src,
+  iconRetinaUrl: markerIcon2x.src,
+  shadowUrl: markerShadow.src,
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
 });
 
 export default function MapView() {
-  // Center on Erasmus University
-  const center = [51.9187, 4.4795];
-  
-  // Three extra random points in Rotterdam
-  const extraMarkers = [
-    { position: [51.9172, 4.4859], label: 'Witte de Withstraat' },
-    { position: [51.9097, 4.4723], label: 'Euromast' },
-    { position: [51.9194, 4.4821], label: 'Markthal' },
-  ];
+  // compute map center as the average of all item coordinates
+  const avgLat = items.reduce((sum, i) => sum + i.lat, 0) / items.length;
+  const avgLng = items.reduce((sum, i) => sum + i.lng, 0) / items.length;
+  const center = [avgLat, avgLng];
 
   return (
-    <div className="h-80 w-full rounded-xl overflow-hidden shadow my-8">
-      <MapContainer center={center} zoom={14} scrollWheelZoom={false} className="h-full">
-        <TileLayer
-          attribution="&copy; OpenStreetMap contributors"
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+    <MapContainer
+      center={center}
+      zoom={13}
+      scrollWheelZoom={false}
+      style={{ height: '400px', width: '100%' }}
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
 
-        {/* Main campus marker */}
-        <Marker position={center}>
-          <Popup>Erasmus University Rotterdam</Popup>
+      {items.map(item => (
+        <Marker
+          key={item.id}
+          position={[item.lat, item.lng]}
+          icon={defaultIcon}
+        >
+          <Popup>
+            <strong>{item.title}</strong>
+            <br />
+            {item.distance} • ${item.price}/day
+          </Popup>
         </Marker>
-
-        {/* Extra random markers */}
-        {extraMarkers.map(({ position, label }) => (
-          <Marker key={label} position={position}>
-            <Popup>{label}</Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </div>
+      ))}
+    </MapContainer>
   );
 }
