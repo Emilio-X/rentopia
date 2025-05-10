@@ -8,6 +8,7 @@ export const items = [
       availableFrom: "Mar 15",
       price: 35,
       image: "/images/Camera1.jpg",
+      category: 'electronics',
     },
     {
       id: 2,
@@ -17,6 +18,7 @@ export const items = [
       availableFrom: "Mar 18",
       price: 25,
       image: "/images/Bike.jpg",
+      category: 'transport',
     },
     {
       id: 3,
@@ -26,6 +28,7 @@ export const items = [
       availableFrom: "Now",
       price: 45,
       image: "/images/Tools.jpg",
+      category: 'tools',
     },
     {
       id: 4,
@@ -35,6 +38,7 @@ export const items = [
       availableFrom: "Mar 20",
       price: 120,
       image: "/images/DJ.jpg",
+      category: 'electronics',
     },
   ];
   

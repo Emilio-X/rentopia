@@ -4,7 +4,9 @@ import { FaStar, FaRegHeart } from 'react-icons/fa'
 
 export default function ItemCard({ title, distance, rating, availableFrom, price, image }) {
   return (
-    <div className="bg-white rounded-xl shadow p-4 flex flex-col">
+    <div className="bg-white rounded-xl shadow p-4 flex flex-col overflow-hidden shadow 
+      transform hover:-translate-y-1 hover:shadow-lg 
+      transition-all duration-200 ease-out">
       {/* 1) Photo */}
       <div className="relative h-40 w-full rounded overflow-hidden mb-4">
         <Image
