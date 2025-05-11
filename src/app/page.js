@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Hero        from '../components/Hero'
 import Header      from '../components/Header'
 import CategoryNav from '../components/CategoryNav'
 import ItemCard    from '../components/ItemCard'
@@ -36,6 +37,8 @@ export default function HomePage() {
         setSearchQuery={setSearchQuery}
         onListClick={() => setAdding(true)}
       />
+      
+      <Hero />
 
       <CategoryNav
         selectedCategory={selectedCategory}
